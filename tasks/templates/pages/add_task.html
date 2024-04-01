@@ -1,0 +1,24 @@
+{% extends 'base.html' %} <!-- Extend template to this page -->
+<!-- page title -->
+{% block title %}Add New Task{% endblock %}
+
+{% block content %}
+<!-- Use the .notebook class to wrap the content, giving it the notebook look -->
+<div class="notebook">
+    <!-- This h1 tag will inherit styles defined for .notebook h1, including the border and padding -->
+    <h1>Add New Task</h1>
+    <form method="post" action="" class="tasks">
+        {% csrf_token %}
+        <!-- Using .form-control for input fields to apply the defined styles -->
+        <div class="form-group">
+            <!-- Wrap form fields in a div with class .form-group for better control -->
+            {{ form.as_p }}
+        </div>
+        <!-- The button class .btn will style the submit button -->
+        <button type="submit" class="btn">Add Task</button>
+    </form>
+    <!-- Use the .btn style for consistency, but modify it to fit as a link -->
+    <a href="{% url 'task_view' %}" class="btn" style="background-color: transparent; color: #007aff;">Back to Task List</a>
+</div>
+{% endblock content %}
+

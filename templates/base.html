@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>{% block title %}To-Do-List{% endblock title %}</title>
+    <!-- Include CSS Style Sheet -->
+    {% load static %} <!-- Must load static or it will assume relative path -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <!-- Include CSS Font Awesone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+<body>
+    {% block content %}
+    <!-- Page-specific content will go here -->
+    {% endblock content %}
+</body>
+</html>

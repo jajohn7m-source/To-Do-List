@@ -1,0 +1,82 @@
+{% extends 'base.html' %} <!-- Extend the template to this page -->
+
+{% block content %}
+<!-- Content Container -->
+<div class="container">
+    <h1>Tasks</h1>
+    <!-- Active Task & Completed Task Controls-->
+    <div class="task-controls">
+        <button id="show-active-btn">Active Tasks</button>
+        <button id="show-completed-btn">Completed Tasks</button>
+    </div>
+
+    <!-- Active Tasks Content -->
+    <div id="active-tasks" class="tasks">
+        <!-- Title -->
+        <h2>Active Tasks</h2>
+        <ul>
+            <!-- For each task in active task -->
+            {% for task in active_tasks %}
+            <li>
+                <!-- Task Description -->
+                {{ task.description }}
+                <!-- Active Task Form -->
+                <form action="{% url 'toggle_task' task.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <!-- btn mark task complete -->
+                    <button type="submit" class="icon-btn">
+                        <i class="fas fa-check"></i> <!-- For "Mark Completed" -->
+                    </button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Completed Tasks Content -->
+    <div id="completed-tasks" class="tasks" style="display: none;">
+        <!-- Title -->
+        <h2>Completed Tasks</h2>
+        <ul>
+            <!-- For each task in completed tasks -->
+            {% for task in completed_tasks %}
+            <li>
+                <!-- Task Description -->
+                {{ task.description }}
+                <!-- Commpleted Task Form -->
+                <form action="{% url 'toggle_task' task.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <!-- btn mark as active task -->
+                    <button type="submit" class="icon-btn">
+                        <i class="fas fa-undo"></i> <!-- For "Mark Active" -->
+                    </button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- Add New Task Button -->
+    <a href="{% url 'add_task' %}" class="btn">Add New Task</a>
+</div>
+{% block scripts %}
+<!-- SCRIPTS -->
+<script>
+    // Get the show-active-btn button and add event method 
+    document.getElementById('show-active-btn').addEventListener('click', function() {
+        // Set active task visible
+        document.getElementById('active-tasks').style.display = 'block';
+        // Hide the completed task content
+        document.getElementById('completed-tasks').style.display = 'none';
+    });
+    // Get the show-complted-btn and add event method
+    document.getElementById('show-completed-btn').addEventListener('click', function() {
+        console.log('Completed button clicked');
+        // Set active-task to hidden
+        document.getElementById('active-tasks').style.display = 'none';
+        // Show completed task content
+        document.getElementById('completed-tasks').style.display = 'block';
+    });
+</script>
+{% endblock scripts %}
+{% endblock content %}
+
